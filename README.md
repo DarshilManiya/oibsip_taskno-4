@@ -32,7 +32,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/DarshilManiya/Pinterest_Clone.git
+git clone https://github.com/DarshilManiya/oibsip_taskno-4.git
 cd Pinterest_Clone
 Install dependencies:
 
