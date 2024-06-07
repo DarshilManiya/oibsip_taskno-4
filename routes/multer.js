@@ -11,6 +11,22 @@ const storage = multer.diskStorage({
     cb(null, uniqueFilename + path.extname(file.originalname));
   },
 });
+
+// Storage configuration for profile image uploads
+const storageProfile = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/images/profile_img");
+  },
+  filename: function (req, file, cb) {
+    const uniqueFilename = uuidv4();
+    cb(null, uniqueFilename + path.extname(file.originalname));
+  },
+});
+
+const uploadProfile = multer({ storage: storageProfile });
 const upload = multer({ storage: storage });
 
-module.exports = upload;
+module.exports = {
+  uploadProfile,
+  upload,
+};

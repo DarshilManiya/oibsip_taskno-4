@@ -8,23 +8,141 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom CSS here */
+        .profile-circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: auto;
+        }
         .profile-circle img {
             border: 5px solid white;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
         }
+        .profile-circle input[type="file"] {
+            display: none;
+        }
+        .profile-circle .edit-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .profile-circle:hover .edit-button {
+            opacity: 1;
+        }
+        .profile-circle:hover img {
+            opacity: 0.5;
+        }
+        .profile-card {
+            background: linear-gradient(145deg, #f3f4f6, #ffffff);
+            box-shadow: 5px 5px 15px #d1d5db, -5px -5px 15px #ffffff;
+        }
+        .profile-card .card-body {
+            padding: 2rem;
+        }
+        .profile-card h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4a5568;
+        }
+        .profile-card .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .profile-card .card-text {
+            color: #4a5568;
+        }
+        .profile-card .btn-danger {
+            background-color: #e53e3e;
+        }
+        .profile-card .btn-danger:hover {
+            background-color: #c53030;
+        }
+        .post-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .upload-form {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .upload-form input[type="file"] {
+            padding: 0.5rem;
+        }
+        .upload-form button {
+            background-color: #48bb78;
+            color: white;
+        }
+        .upload-form button:hover {
+            background-color: #38a169;
+        }
+        .hidden-submit {
+            display: none;
+        }
+        .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+    .alert-success {
+      color: #3c763d;
+      background-color: #dff0d8;
+      border-color: #d6e9c6;
+    }
+    .hidden {
+      display: none;
+    }
     </style>
+    <script>
+        function showSubmitButton() {
+            document.getElementById('submit-button').classList.remove('hidden-submit');
+        }
+        // Hide the flash message after 2 seconds
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var flashMessage = document.getElementById('flash-message');
+        if (flashMessage) {
+          flashMessage.classList.add('hidden');
+        }
+      }, 2000); // 2000 milliseconds = 2 seconds
+    });
+    </script>
 </head>
 <body class="bg-gray-100">
     <div class="container mt-5">
+        <% if (success && success.length > 0) { %>
+            <div id="flash-message" class="alert alert-success"><%= success %></div>
+          <% } %>
         <div class="row">
             <div class="col-md-4">
-                <div class="card mb-3">
+                <div class="card mb-3 profile-card">
                     <div class="card-body text-center">
                         <div class="profile-circle mx-auto mb-3">
-                            <img src="/images/Profile_Photo.jpeg" alt="Profile Photo" class="rounded-circle w-75">
+                            <img src="/images/profile_img/<%= user.dp %>" alt="Profile Photo">
+                            <form action="/uploadProfile" method="post" enctype="multipart/form-data">
+                                <input type="file" name="profile_img" id="profile_img" onchange="showSubmitButton()">
+                                <label for="profile_img" class="edit-button">Edit</label>
+                                <button type="submit" id="submit-button" class="btn btn-primary hidden-submit mt-2">Upload Profile Image</button>
+                            </form>
                         </div>
-                        <h4 class="card-title"><%= user.username %></h4>
+                        <h4 class="card-title mt-3"><%= user.username %></h4>
                         <p class="card-text"><%= user.fullname %></p>
-                        <a href="/logout" class="btn btn-danger">Log Out</a>
+                        <a href="/logout" class="btn btn-danger mt-2">Log Out</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +150,7 @@
                 <div class="row">
                     <% user.posts.forEach(function(post) { %>
                         <div class="col-md-4">
-                            <div class="card mb-3">
+                            <div class="card mb-3 post-card">
                                 <img src="/images/uploads/<%= post.image %>" alt="Posted Image" class="card-img-top">
                                 <div class="card-body">
                                     <p class="card-text"><%= post.imgText %></p>
@@ -45,8 +163,8 @@
         </div>
         <!-- Upload Form -->
         <div class="row mt-5">
-            <div class="col-md-8 offset-md-4">
-                <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="col-md-8 offset-md-2">
+                <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
                     <div class="form-group">
                         <input type="text" name="imgcaption" placeholder="Write image caption" class="form-control mb-2">
                     </div>

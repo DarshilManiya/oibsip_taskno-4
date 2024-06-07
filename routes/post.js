@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://darshilmaniya05:0lxCxyLZSAnO5QOo@cluster0.2cehxaw.mongodb.net/pinterest-data"
-);
 
 const postSchema = new mongoose.Schema({
   imgText: {
@@ -22,6 +19,9 @@ const postSchema = new mongoose.Schema({
   likes: {
     type: Array,
     default: [],
+  },
+  dp: {
+    type: String, // Field to store profile image filename
   },
 });
 

@@ -3,32 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>User Log in</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
   <div class="container">
     <div class="content">
-      <!--pinterest logo-->
-      <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
+      <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="Pinterest logo" class="img1" />
       <p class="header">User Log in</p>
 
       <% if (error && error.length > 0) { %>
-        <div class="error">
-            <%- error[0] %>
+        <div class="error" role="alert">
+          <%= error[0] %>
         </div>
-    <% } %>
+      <% } %>
+      <% if (logoutMsg && logoutMsg.length > 0) { %>
+        <div class="error" role="alert">
+          <%= logoutMsg %>
+        </div>
+      <% } %>
 
       <form action="/login" method="post">
-        <input type="text" name="username" placeholder="username" class="detail" /><br />
+        <input type="text" name="username" placeholder="Username" class="detail" /><br />
         <input type="password" name="password" placeholder="Password" class="detail" /><br />
         <input type="submit" class="btn int" value="Log in">
       </form>
 
-
       <a href="/forgot">Forgot your password?</a>
-
-      
 
       <footer>
         <p>
@@ -40,6 +41,5 @@
       </footer>
     </div>
   </div>
-
 </body>
 </html>
