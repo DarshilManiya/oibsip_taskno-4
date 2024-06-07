@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 });
 
 /* GET home page. */
-router.get("/signup", function (req, res, next) {
+router.get("/register", function (req, res, next) {
   const successMsg = req.flash("success");
   const errorMsg = req.flash("error");
   res.render("index", {
