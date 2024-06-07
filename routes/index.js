@@ -9,7 +9,7 @@ const { upload, uploadProfile } = require("./multer");
 // Configure Passport Local Strategy
 passport.use(new localStrategy(userModel.authenticate()));
 
-router.get("/home", (req, res) => {
+router.get("/", (req, res) => {
   res.render("home");
 });
 
