@@ -1,4 +1,4 @@
-
+Deployment on Vercel Link:- https://pinterestclone-oeghr9l32-darshil-maniyas-projects.vercel.app
 
 Pinterest Clone
 This is a Pinterest clone application built using Node.js, Express, MongoDB, and Passport.js for authentication. Users can register, log in, and post images to their profile. Users must be logged in to view profiles and posts. Multer is used for uploading images from local devices, and Nodemon is used for development purposes to automatically restart the server on file changes.
